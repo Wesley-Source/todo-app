@@ -1,8 +1,8 @@
 <div x-data="{ isListModalOpen: false, isTaskModalOpen: false }">
     <div class="columns is-v-centered">
-        <div class="column is-2">
+        <div class="column is-one-quarter">
             <div class="box">
-                <aside class="menu" id="lists-list">
+                <aside class="menu p-0" id="lists-list">
                     {{template "partials/menus-list" .}}
                 </aside>
                 <button @click="isListModalOpen = true" class="button is-small is-info mt-4 is-fullwidth">
@@ -13,7 +13,7 @@
                 </button>
             </div>
         </div>
-        <div class="column is-9">
+        <div class="column ">
             <div class="level mb-5">
                 <div class="level-left">
                     <div class="level-item">

@@ -15,12 +15,51 @@ import (
 
 var Session *session.Store
 
-func listConverter(list database.List) map[string]interface{} {
-	return map[string]interface{}{
-		"ID":    list.ID,
-		"Title": list.Title,
-		"Tasks": database.SearchTasksByListID(list.ID),
+type List struct {
+	ID    uint
+	Title string
+	Tasks []Task
+}
+
+type Task struct {
+	ID          uint
+	Title       string
+	Description string
+	DueDate     string
+	Completed   bool
+}
+
+func listConverter(list database.List) List {
+	return List{
+		ID:    list.ID,
+		Title: list.Title,
+		Tasks: []Task{},
 	}
+}
+
+func taskConverter(task database.Task) Task {
+	return Task{
+		ID:          task.ID,
+		Title:       task.Title,
+		Description: task.Description,
+		DueDate:     task.DueDate,
+		Completed:   task.Completed,
+	}
+}
+
+func listMaker(user database.User) []List {
+	var lists []List
+	for _, list := range database.SearchListsByUserID(user.ID) {
+		convertedList := listConverter(list)
+		for _, task := range database.SearchTasksByListID(list.ID) {
+			convertedTask := taskConverter(task)
+			convertedList.Tasks = append(convertedList.Tasks, convertedTask)
+		}
+
+		lists = append(lists, convertedList)
+	}
+
+	return lists
 }
 
 func Render(c *fiber.Ctx, view string, partial ...bool) error {
@@ -34,17 +73,14 @@ func Render(c *fiber.Ctx, view string, partial ...bool) error {
 		// If the user is logged in, fetch their information
 		user := database.SearchUserById(userID.(uint))
 
-		var lists []map[string]interface{}
-		for _, list := range database.SearchListsByUserID(userID.(uint)) {
-			lists = append(lists, listConverter(list))
-		}
+		lists := listMaker(user)
 
 		data["Username"] = user.Username
 		data["Email"] = user.Email
 		data["Lists"] = lists
 	}
 
-	if len(partial) > 0 && partial[0] == true {
+	if len(partial) > 0 && partial[0] {
 		return c.Render(view, data)
 	}
 

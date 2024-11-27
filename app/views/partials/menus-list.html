@@ -1,16 +1,22 @@
-        <ul class="is-flex is-flex-direction-column is-align-items-center">
-            {{range .Lists}}  
-            <li class="is-flex is-justify-content-space-betwee">
-                
-                <button class="button is-danger">
-                    <span class="icon">
-                        <i class="fas fa-times"></i>
-                    </span>
-                </button>
-                <a class="is-flex is-align-items-center is-justify-content-space-between has-text-weight-bold is-clipped">
+<ul>
+    {{range .Lists}}  
+    <li>
+        <div class="is-flex is-justify-content-flex-start mb-4 has-align-items-center">
+            <button class="button is-danger is-small mr-3"
+                    hx-post="/list_remove"
+                    hx-vals='{"list_id": "{{.ID}}"}'
+                    hx-target="#lists-list"
+            >
+                <span class="icon is-small">
+                    <i class="fas fa-times"></i>
+                </span>
+            </button>
+            <div class="has-text-truncated is-clipped">
+                <h3 class="has-text-weight-bold has-text-centered  is-size-5">
                     {{.Title}}
-                </a>
-            </li>
-            
-                {{end}}
-        </ul>
+                </h3>
+            </div>
+        </div>
+    </li>
+    {{end}}
+</ul>
