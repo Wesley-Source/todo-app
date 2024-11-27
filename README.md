@@ -48,7 +48,7 @@ go run main.go
 Para desenvolvimento, você pode usar o Air para live-reload:
 ```bash
 # Instalar o Air (caso não tenha)
-go install github.com/cosmtrek/air@latest
+go install github.com/air-verse/air@latest
 
 # Executar o projeto com Air
 air
