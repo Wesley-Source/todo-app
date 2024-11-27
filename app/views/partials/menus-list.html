@@ -3,16 +3,17 @@
     <li>
         <div class="is-flex is-justify-content-flex-start mb-4 has-align-items-center">
             <button class="button is-danger is-small mr-3"
-                    hx-post="/list_remove"
+                    hx-post="/list_delete"
                     hx-vals='{"list_id": "{{.ID}}"}'
                     hx-target="#lists-list"
+                    hx-trigger="click"
             >
                 <span class="icon is-small">
                     <i class="fas fa-times"></i>
                 </span>
             </button>
             <div class="has-text-truncated is-clipped">
-                <h3 class="has-text-weight-bold has-text-centered  is-size-5">
+                <h3 class="is-clickable has-text-weight-bold is-info has-text-centered is-size-5">
                     {{.Title}}
                 </h3>
             </div>

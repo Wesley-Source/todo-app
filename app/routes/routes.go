@@ -8,14 +8,6 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-// func convertUser(user database.User) map[string]interface{} {
-// 	return map[string]interface{}{
-// 		"ID":       user.ID,
-// 		"Username": user.Username,
-// 		"Email":    user.Email,
-// 	}
-// }
-
 func Index(c *fiber.Ctx) error {
 	return middleware.Redirect(c, "index", "/")
 }
@@ -78,6 +70,36 @@ func ListAddPost(c *fiber.Ctx) error {
 
 	database.Database.Create(&list)
 	// Quando for uma requisição HTMX, use RenderPartial
+	return middleware.Render(c, "partials/menus-list", true)
+}
+
+func ListDeletePost(c *fiber.Ctx) error {
+	// Parse the list ID from the request
+	listID, err := strconv.ParseUint(c.FormValue("list_id"), 10, 32)
+	if err != nil {
+		return c.Status(400).SendString("Invalid list ID")
+	}
+
+	// Get the user ID from the context
+	userID := c.Locals("user_id").(uint)
+
+	// Find the list
+	var list database.List
+	if err := database.Database.First(&list, listID).Error; err != nil {
+		return c.Status(404).SendString("List not found")
+	}
+
+	// Verify that the list belongs to the user
+	if list.UserID != userID {
+		return c.Status(403).SendString("Unauthorized")
+	}
+
+	// Delete all tasks associated with the list (GORM will handle this automatically due to the relationship)
+	if err := database.Database.Delete(&list).Error; err != nil {
+		return c.Status(500).SendString("Failed to delete list")
+	}
+
+	// Return the updated lists partial
 	return middleware.Render(c, "partials/menus-list", true)
 }
 

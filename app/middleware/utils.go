@@ -15,12 +15,14 @@ import (
 
 var Session *session.Store
 
+// List represents a todo list with its tasks
 type List struct {
 	ID    uint
 	Title string
 	Tasks []Task
 }
 
+// Task represents a todo item with its details
 type Task struct {
 	ID          uint
 	Title       string
@@ -29,6 +31,7 @@ type Task struct {
 	Completed   bool
 }
 
+// listConverter converts a database List model to a middleware List struct
 func listConverter(list database.List) List {
 	return List{
 		ID:    list.ID,
@@ -37,6 +40,7 @@ func listConverter(list database.List) List {
 	}
 }
 
+// taskConverter converts a database Task model to a middleware Task struct
 func taskConverter(task database.Task) Task {
 	return Task{
 		ID:          task.ID,
@@ -47,6 +51,7 @@ func taskConverter(task database.Task) Task {
 	}
 }
 
+// listMaker creates a slice of Lists with their associated Tasks for a given user
 func listMaker(user database.User) []List {
 	var lists []List
 	for _, list := range database.SearchListsByUserID(user.ID) {
@@ -62,6 +67,7 @@ func listMaker(user database.User) []List {
 	return lists
 }
 
+// Render handles template rendering with user data and lists if authenticated
 func Render(c *fiber.Ctx, view string, partial ...bool) error {
 	userID := GetSessionCookie(c)
 	data := fiber.Map{
@@ -87,6 +93,7 @@ func Render(c *fiber.Ctx, view string, partial ...bool) error {
 	return c.Render(view, data, "layouts/main")
 }
 
+// Redirect handles both HTMX and regular redirects
 func Redirect(c *fiber.Ctx, view, route string) error {
 	if c.Get("HX-Request") == "true" {
 		c.Set("HX-Redirect", route)
@@ -96,6 +103,7 @@ func Redirect(c *fiber.Ctx, view, route string) error {
 	return Render(c, view)
 }
 
+// ConnectSessionsDB initializes the session store with SQLite backend
 func ConnectSessionsDB() {
 	storage := sqlite3.New(sqlite3.Config{
 		Table:    "session_storage",
@@ -112,6 +120,7 @@ func ConnectSessionsDB() {
 	})
 }
 
+// HashPassword generates a secure hash of the provided password
 func HashPassword(password string) string {
 	// Returns a hashed and salted password
 	hashBytes, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
@@ -121,11 +130,13 @@ func HashPassword(password string) string {
 	return string(hashBytes)
 }
 
+// ValidatePassword checks if a password matches its hashed version
 func ValidatePassword(hashedPassword string, password string) bool {
 	err := bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(password))
 	return err == nil
 }
 
+// AuthMiddleware handles user authentication and route protection
 func AuthMiddleware(c *fiber.Ctx) error {
 	/*
 		Prevents the logged user from accessing the login and register pages
@@ -161,6 +172,7 @@ func AuthMiddleware(c *fiber.Ctx) error {
 	return c.Next()
 }
 
+// SetSessionCookie stores the user ID in the session
 func SetSessionCookie(c *fiber.Ctx, id uint) {
 	session, err := Session.Get(c)
 	if err != nil {
@@ -172,6 +184,7 @@ func SetSessionCookie(c *fiber.Ctx, id uint) {
 	session.Save()
 }
 
+// GetSessionCookie retrieves the user ID from the session
 func GetSessionCookie(c *fiber.Ctx) interface{} {
 	session, err := Session.Get(c)
 	if err != nil {
@@ -181,6 +194,7 @@ func GetSessionCookie(c *fiber.Ctx) interface{} {
 	return session.Get("user_id")
 }
 
+// ClearSessionCookie removes the user ID from the session and clears the cookie
 func ClearSessionCookie(c *fiber.Ctx) {
 	session, err := Session.Get(c)
 	if err != nil {

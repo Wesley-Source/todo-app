@@ -45,7 +45,9 @@ func main() {
 	app.Get("/todo", middleware.AuthMiddleware, routes.TodoGet)
 
 	app.Post("/list_add", middleware.AuthMiddleware, routes.ListAddPost)
+	app.Post("/list_delete", middleware.AuthMiddleware, routes.ListDeletePost)
 	app.Post("/task_add", middleware.AuthMiddleware, routes.TaskAddPost)
+	// app.Post("/task_delete", middleware.AuthMiddleware, routes.TaskDeletePost)
 
 	log.Fatalln(app.Listen(os.Getenv("PORT")))
 }
