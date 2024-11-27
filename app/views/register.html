@@ -1,0 +1,102 @@
+<div class="container">
+  <div class="columns is-centered">
+    <div class="column is-5-tablet is-4-desktop is-4-widescreen">
+      <div class="box">
+        <h1 class="title has-text-centered mb-4">Register</h1>
+        <form hx-post="/register" x-data="{ showPassword: false, showConfirmPassword: false }">
+          <div class="field">
+            <label class="label">Username</label>
+            <div class="control has-icons-left">
+              <input
+                class="input"
+                type="text"
+                name="username"
+                id="username"
+                placeholder="Your username"
+                required
+              />
+              <span class="icon is-small is-left">
+                <i class="fas fa-user"></i>
+              </span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Email</label>
+            <div class="control has-icons-left">
+              <input
+                class="input"
+                type="email"
+                name="email"
+                id="email"
+                placeholder="exemplo@email.com"
+                required
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.(com|org|net|edu)$"
+                title="Please input a valid email address that ends with .com, .org, .net, or .edu"
+              />
+              <span class="icon is-small is-left">
+                <i class="fas fa-envelope"></i>
+              </span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Password</label>
+            <div class="control has-icons-left has-icons-right">
+              <input
+                class="input"
+                :type="showPassword ? 'text' : 'password'"
+                name="password"
+                id="password"
+                placeholder="********"
+                required
+              />
+              <span class="icon is-small is-left">
+                <i class="fas fa-lock"></i>
+              </span>
+              <span class="icon is-small is-right is-clickable" @click="showPassword = !showPassword" style="pointer-events: all; z-index: 10;">
+                <i class="fas" :class="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+              </span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Confirm Password</label>
+            <div class="control has-icons-left has-icons-right">
+              <input
+                class="input"
+                :type="showConfirmPassword ? 'text' : 'password'"
+                name="confirm_password"
+                id="confirm_password"
+                placeholder="********"
+                required
+                oninput="this.setCustomValidity(this.value != document.getElementById('password').value ? 'Passwords do not match.' : '')"
+              />
+              <span class="icon is-small is-left">
+                <i class="fas fa-lock"></i>
+              </span>
+              <span class="icon is-small is-right is-clickable" @click="showConfirmPassword = !showConfirmPassword" style="pointer-events: all; z-index: 10;">
+                <i class="fas" :class="showConfirmPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+              </span>
+            </div>
+          </div>
+
+          <div class="field mt-5">
+            <div class="control">
+              <button type="submit" class="button is-info is-fullwidth">
+                <span class="icon">
+                  <i class="fas fa-user-plus"></i>
+                </span>
+                <span>Register</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="has-text-centered">
+            <p>Already have an account? <a href="/login" class="has-text-info">Login</a></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

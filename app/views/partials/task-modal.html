@@ -1,0 +1,26 @@
+<!-- New Task Modal -->
+<div class="modal" :class="{ 'is-active': isTaskModalOpen }">
+    <div class="modal-background" @click="isTaskModalOpen = false"></div>
+    <div class="modal-card">
+        <form hx-post="/task_add" @submit.prevent="isTaskModalOpen = false">
+            <div class="field">
+                <label for="task_title" class="label has-text-white">Task Title</label>
+                <div class="control">
+                    <input class="input has-background-black-ter has-text-white" type="text" name="task_title" id="task_title" placeholder="Task title">
+                </div>
+            </div>
+            <div class="field">
+                <label for="task_description" class="label has-text-white">Description</label>
+                <div class="control">
+                    <textarea class="textarea has-background-black-ter has-text-white" name="task_description" id="task_description" placeholder="Task description"></textarea>
+                </div>
+            </div>
+            <input type="hidden" name="list_id" :value="activeList">
+            <div class="field">
+                <div class="control">
+                    <button type="submit" class="button is-info is-fullwidth">Add Task</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

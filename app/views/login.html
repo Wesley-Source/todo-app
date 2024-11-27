@@ -1,0 +1,64 @@
+<div class="container">
+  <div class="columns is-centered mt-6">
+    <div class="column is-5-tablet is-4-desktop is-4-widescreen">
+      <div class="box">
+        <h1 class="title has-text-centered mb-5">Login</h1>
+        <form hx-post="/login" x-data="{ showPassword: false }">
+          <div class="field">
+            <label class="label">Email</label>
+            <div class="control has-icons-left">
+              <input
+                class="input"
+                type="email"
+                name="email"
+                id="email"
+                placeholder="exemplo@email.com"
+                required
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.(com|org|net|edu)$"
+                title="Please input a valid email address that ends with .com, .org, .net, or .edu"
+              />
+              <span class="icon is-small is-left">
+                <i class="fas fa-envelope"></i>
+              </span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Password</label>
+            <div class="control has-icons-left has-icons-right">
+              <input
+                class="input"
+                :type="showPassword ? 'text' : 'password'"
+                name="password"
+                id="password"
+                placeholder="********"
+                required
+              />
+              <span class="icon is-small is-left">
+                <i class="fas fa-lock"></i>
+              </span>
+              <span class="icon is-small is-right is-clickable" @click="showPassword = !showPassword" style="pointer-events: all; z-index: 10;">
+                <i class="fas" :class="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+              </span>
+            </div>
+          </div>
+
+          <div class="field mt-5">
+            <div class="control">
+              <button type="submit" class="button is-info is-fullwidth">
+                <span class="icon">
+                  <i class="fas fa-sign-in-alt"></i>
+                </span>
+                <span>Login</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="has-text-centered mt-4">
+            <p>Don't have an account? <a href="/register" class="has-text-info">Register</a></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

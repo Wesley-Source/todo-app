@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+  <head>
+    {{template "partials/head" .}}
+  </head>
+  <body style="min-height: 100vh;" class="has-background-black">
+    {{template "partials/navbar" .}}
+    <section class="section">
+      {{embed}}
+    </section>
+  </body>
+</html>

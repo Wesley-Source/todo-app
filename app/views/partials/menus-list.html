@@ -1,0 +1,16 @@
+        <ul class="is-flex is-flex-direction-column is-align-items-center">
+            {{range .Lists}}  
+            <li class="is-flex is-justify-content-space-betwee">
+                
+                <button class="button is-danger">
+                    <span class="icon">
+                        <i class="fas fa-times"></i>
+                    </span>
+                </button>
+                <a class="is-flex is-align-items-center is-justify-content-space-between has-text-weight-bold is-clipped">
+                    {{.Title}}
+                </a>
+            </li>
+            
+                {{end}}
+        </ul>

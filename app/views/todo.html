@@ -1,0 +1,57 @@
+<div x-data="{ isListModalOpen: false, isTaskModalOpen: false }">
+    <div class="columns is-v-centered">
+        <div class="column is-2">
+            <div class="box">
+                <aside class="menu" id="lists-list">
+                    {{template "partials/menus-list" .}}
+                </aside>
+                <button @click="isListModalOpen = true" class="button is-small is-info mt-4 is-fullwidth">
+                    <span class="icon">
+                        <i class="fas fa-plus"></i>
+                    </span>
+                    <span class="has-text-weight-bold">New List</span>
+                </button>
+            </div>
+        </div>
+        <div class="column is-9">
+            <div class="level mb-5">
+                <div class="level-left">
+                    <div class="level-item">
+                        <div class="field has-addons">
+                            <p class="control">
+                                <input class="input" type="text" placeholder="Search tasks...">
+                            </p>
+                            <p class="control">
+                                <button class="button is-info">
+                                    <span class="icon">
+                                        <i class="fas fa-search"></i>
+                                    </span>
+                                </button>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="level-right">
+                    <div class="level-item">
+                        <button @click="isTaskModalOpen = true" class="button is-info">
+                            <span class="icon">
+                                <i class="fas fa-plus"></i>
+                            </span>
+                            <span>New Task</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tasks Container -->
+            <div class="tasks-container">
+                {{range .Tasks}}
+                    {{template "partials/task-card" .}}
+                {{end}}
+            </div>
+        </div>
+    </div>
+
+    {{template "partials/list-modal" .}}
+    {{template "partials/task-modal" .}}
+</div>

@@ -1,0 +1,85 @@
+<div class="hero has-background-black is-fullheight-with-navbar">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-vcentered">
+        <div class="column is-6">
+          <h1 class="title is-1 has-text-white">
+            Organize your day with style!
+          </h1>
+          <p class="subtitle is-4 has-text-grey-lighter mt-3">
+            A simple and elegant way to manage your daily tasks.
+          </p>
+          {{if not .UserID}}
+            <div class="buttons mt-5">
+              <a href="/register" class="button is-info is-medium">
+                <span class="icon">
+                  <i class="fas fa-user-plus"></i>
+                </span>
+                <span>Get Started</span>
+              </a>
+              <a href="/login" class="button is-dark is-medium">
+                <span class="icon">
+                  <i class="fas fa-sign-in-alt"></i>
+                </span>
+                <span>Login</span>
+              </a>
+            </div>
+          {{else}}
+            <div class="buttons mt-5">
+              <a href="/todo" class="button is-info is-medium">
+                <span class="icon">
+                  <i class="fas fa-tasks"></i>
+                </span>
+                <span>My Tasks</span>
+              </a>
+            </div>
+          {{end}}
+        </div>
+        <div class="column is-6">
+          <div class="box has-background-black-ter has-text-white has-text-centered p-6" style="border: 1px solid #485fc7;">
+            <span class="icon is-large">
+              <i class="fas fa-clipboard-list fa-5x has-text-info"></i>
+            </span>
+            <div class="content mt-5">
+              <h3 class="title is-4 has-text-white">Features</h3>
+              <div class="columns is-multiline">
+                <div class="column is-6">
+                  <div class="box has-background-black-bis" style="border: 1px solid #485fc7;">
+                    <span class="icon has-text-info">
+                      <i class="fas fa-check-circle"></i>
+                    </span>
+                    <p class="has-text-grey-lighter mt-2">Simple Organization</p>
+                  </div>
+                </div>
+                <div class="column is-6">
+                  <div class="box has-background-black-bis" style="border: 1px solid #485fc7;">
+                    <span class="icon has-text-info">
+                      <i class="fas fa-mobile-alt"></i>
+                    </span>
+                    <p class="has-text-grey-lighter mt-2">Responsive Design</p>
+                  </div>
+                </div>
+                <div class="column is-6">
+                  <div class="box has-background-black-bis" style="border: 1px solid #485fc7;">
+                    <span class="icon has-text-info">
+                      <i class="fas fa-shield-alt"></i>
+                    </span>
+                    <p class="has-text-grey-lighter mt-2">Safe & Private</p>
+                  </div>
+                </div>
+                <div class="column is-6">
+                  <div class="box has-background-black-bis" style="border: 1px solid #485fc7;">
+                    <span class="icon has-text-info">
+                      <i class="fas fa-bolt"></i>
+                    </span>
+                    <p class="has-text-grey-lighter mt-2">Fast & Efficient</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

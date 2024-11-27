@@ -1,0 +1,19 @@
+<!-- New List Modal -->
+<div class="modal" :class="{ 'is-active': isListModalOpen }">
+    <div class="modal-background" @click="isListModalOpen = false"></div>
+    <div class="modal-card">
+        <form hx-post="/list_add" hx-target="#lists-list" @submit.prevent="isListModalOpen = false">
+            <div class="field">
+                <label for="list_title" class="label">List Title</label>
+                <div class="control">
+                    <input class="input" type="text" name="list_title" id="list_title" placeholder="List title">
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <button type="submit" class="button is-info is-fullwidth">Add List</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
