@@ -1,0 +1,30 @@
+# Databases
+config/database/*.db
+config/database/models.db
+config/database/sessions.db
+
+# Go binary files
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Go test files
+*.test
+
+# Go coverage files
+*.out
+
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Temporary files
+tmp/
+*.tmp
+
+# Air live reload
+tmp/
